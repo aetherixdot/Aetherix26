@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+/* =========================
+   Root Theme Variables
+========================= */
+:root {
+  --background: #121212;
+  --foreground: #e5e7eb;
+
+  --muted: #9ca3af;
+  --border: rgba(255, 255, 255, 0.1);
+
+  /* Aetherix Brand (Electric Violet-Blue) */
+  --accent: #7a5ed6;          /* primary */
+  --accent-hover: #8b74e6;    /* hover */
+  --accent-border: #6a4fc4;   /* border / active */
+  --accent-focus: #5b3fb0;    /* focus ring */
+}
+
+/* =========================
+   Tailwind Theme Bindings
+========================= */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-border: var(--accent-border);
+  --color-accent-focus: var(--accent-focus);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* =========================
+   Light Mode (Optional)
+========================= */
+@media (prefers-color-scheme: light) {
+  :root {
+    --background: #ffffff;
+    --foreground: #0f172a;
+    --muted: #475569;
+    --border: rgba(0, 0, 0, 0.08);
+
+    --accent: #7a5ed6;
+    --accent-hover: #8b74e6;
+    --accent-border: #6a4fc4;
+    --accent-focus: #5b3fb0;
+  }
+}
+
+/* =========================
+   Base Styles
+========================= */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans, Arial, Helvetica, sans-serif);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* =========================
+   Text Selection
+========================= */
+::selection {
+  background: rgba(122, 94, 214, 0.25); /* #7A5ED6 */
+  color: white;
+}
+
+/* =========================
+   Scrollbar (Supabase-like)
+========================= */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
