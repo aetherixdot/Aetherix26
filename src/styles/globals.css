@@ -15,6 +15,21 @@
   --accent-hover: #8b74e6;    /* hover */
   --accent-border: #6a4fc4;   /* border / active */
   --accent-focus: #5b3fb0;    /* focus ring */
+
+    /* Wheel */
+  --wheel-size: 620px;
+  --wheel-scale: 1;
+
+  /* Wheel horizontal offset (half-outside viewport) */
+  --wheel-offset-x: 50%;
+
+  /* Right side layout */
+  --right-max-width: 1200px;
+  --right-padding-left: 520px;
+  --right-padding-right: 96px;
+
+  /* Card content */
+  --card-content-width: 520px;
 }
 
 /* =========================
@@ -128,27 +143,40 @@ body {
     transform: translate(-10%, -10%);
   }
 }
+----------------------------------------
+   Stylized Wheel Component Styles
+----------------------------------------
+.wheel-helm,
+.wheel-rim,
+.wheel-hub {
+  box-sizing: border-box;
+}
 
+/* MAIN HELM */
 .wheel-helm {
   position: relative;
+    display: flex;
+  align-items: center;
+  justify-content: center;
   background: radial-gradient(
-    circle at 50% 50%,
+    circle at center,
     #1a0f2e 0%,
     #0f061d 70%,
     #0a0414 100%
   );
-  box-shadow:
-    inset 0 0 30px rgba(0, 0, 0, 0.6),
-    inset 0 2px 2px rgba(255, 255, 255, 0.04);
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
+/* OUTER RIM */
 .wheel-rim {
   border: 14px solid #5f46a8;
   box-shadow:
-    inset 0 0 20px rgba(0, 0, 0, 0.6),
-    inset 0 2px 4px rgba(255, 255, 255, 0.05),
-    0 0 0 1px rgba(255, 255, 255, 0.04);
+    inset 0 0 18px rgba(0, 0, 0, 0.6),
+    inset 0 1px 2px rgba(255, 255, 255, 0.05);
 }
+
+/* INNER HUB */
 .wheel-hub {
   background: radial-gradient(
     circle at 30% 30%,
@@ -159,10 +187,12 @@ body {
   );
   box-shadow:
     inset 0 2px 4px rgba(255, 255, 255, 0.08),
-    inset 0 -4px 8px rgba(0, 0, 0, 0.6),
-    0 0 0 1px rgba(255, 255, 255, 0.06);
+    inset 0 -4px 8px rgba(0, 0, 0, 0.6);
 }
+
+/* SPOKES */
 .wheel-spoke {
+  border-radius: 999px;
   background: linear-gradient(
     to bottom,
     #c7bbff 0%,
@@ -170,14 +200,135 @@ body {
     #5f4ab0 60%,
     #3d2e78 100%
   );
-  border-radius: 999px;
   box-shadow:
     inset 0 1px 1px rgba(255, 255, 255, 0.15),
     inset 0 -2px 3px rgba(0, 0, 0, 0.5),
     0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
-/* makes sure handles appear above the rim’s border visually */
+/* layering */
 .wheel-helm > div {
   z-index: 1;
 }
+
+/* SCALE CONTAINER */
+.wheel-scale {
+  position: absolute;
+  left: 0;
+  top: 55%;
+  transform:
+    translate(-50%, -50%)
+    scale(var(--wheel-scale));
+}
+
+.wheel-helm {
+  width: var(--wheel-size);
+  height: var(--wheel-size);
+}
+
+
+/* =========================
+   end of the wheel styles
+========================= */
+/* ===============================
+   RIGHT SIDE RESPONSIVE LAYOUT
+   =============================== */
+
+.right-stage {
+  margin-left: auto;
+  width: 100%;
+  max-width: var(--right-max-width);
+
+  padding-left: var(--right-padding-left);
+  padding-right: var(--right-padding-right);
+}
+
+
+
+/* Mobile handled separately */
+/* ===============================
+   CARD LAYOUT
+   =============================== */
+
+.card-layout {
+  max-width: var(--right-max-width);
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.card-photo {
+  flex: 0 0 38%;
+  max-width: 420px;
+}
+
+.card-content {
+  flex: 0 1 var(--card-content-width);
+  max-width: var(--card-content-width);
+  padding-left: clamp(24px, 4vw, 64px);
+}
+@media (max-width: 768px) {
+  .card-layout {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .card-photo {
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  .card-content {
+    padding-left: 0;
+    text-align: center;
+  }
+}
+/* ===============================
+   Responsive Variable Adjustments
+   =============================== */ 
+@media (min-width: 2560px) {
+  :root {
+    --wheel-scale: 1.15;
+    --right-max-width: 1400px;
+    --right-padding-left: 620px;
+    --card-content-width: 600px;
+  }
+}
+@media (max-width: 1440px) {
+  :root {
+    --wheel-scale: 1;
+    --right-max-width: 1200px;
+    --right-padding-left: 520px;
+    --card-content-width: 520px;
+  }
+}
+@media (max-width: 1024px) {
+  :root {
+    --wheel-scale: 0.9;
+    --right-max-width: 1000px;
+    --right-padding-left: 420px;
+    --card-content-width: 480px;
+  }
+}
+@media (max-width: 768px) {
+  :root {
+    --wheel-scale: 0.75;
+    --right-max-width: 900px;
+    --right-padding-left: 360px;
+    --card-content-width: 440px;
+  }
+}
+@media (max-width: 480px) {
+  :root {
+    --wheel-scale: 0.6;
+    --right-max-width: 100%;
+    --right-padding-left: 280px;
+    --card-content-width: 100%;
+  }
+}
+@media (max-width: 425px) {
+  :root {
+    --wheel-scale: 0;
+  }
+}
+

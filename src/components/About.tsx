@@ -55,58 +55,54 @@ const cards = [
   },
 ];
 
-
-
-
 export default function AetherixScrollWheel() {
   const ref = useRef<HTMLDivElement>(null);
 
-  // SCROLL SETUP
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end end"],
   });
 
-  // Number of rotation steps equals number of cards - 1
   const steps = cards.length - 1;
-
-  // Clamp scroll range so the wheel stops spinning when the last card hits center
-  const rotate = useTransform(scrollYProgress, [0, steps / (steps + 1), 1], [0, 540, 540]);
-
-  // Smooth spring for natural feel
-  const rotateSmooth = useSpring(rotate, { stiffness: 40, damping: 30, mass: 0.6 });
-
+  const rotate = useTransform(
+    scrollYProgress,
+    [0, steps / (steps + 1), 1],
+    [0, 540, 540]
+  );
+  const rotateSmooth = useSpring(rotate, {
+    stiffness: 40,
+    damping: 30,
+    mass: 0.6,
+  });
 
   return (
     <section ref={ref} className="relative min-h-[900vh] bg-[#0C0018] text-white">
+      {/* ================= DESKTOP / TABLET ================= */}
       <div className="sticky top-0 h-screen flex items-center justify-between overflow-hidden">
-        {/* ship Helm – true circle, centred at left edge */}
-        <motion.div
-          style={{ rotate: rotateSmooth }}
-          className="absolute -left-75 top-1/3 -translate-y-1/2 w-155 h-155 rounded-full flex items-center justify-center wheel-helm"
-        >
-          {/* Outer rim */}
-<div className="absolute w-full h-full rounded-full wheel-rim" />
+        <div className="wheel-scale">
+          <motion.div
+            style={{ rotate: rotateSmooth, width: 620, height: 620 }}
+            className="wheel-helm rounded-full flex items-center justify-center"
+          >
+            <div className="absolute w-full h-full rounded-full wheel-rim" />
+            <div className="absolute w-40 h-40 rounded-full wheel-hub" />
 
-          {/* Inner hub */}
-<div className="absolute w-40 h-40 rounded-full wheel-hub" />
+            {[...Array(7)].map((_, i) => (
+              <div
+                key={i}
+                className="absolute w-4 h-193 wheel-spoke"
+                style={{
+                  transform: `rotate(${i * 45}deg) translateY(-10px)`,
+                  transformOrigin: "center center",
+                }}
+              />
+            ))}
+          </motion.div>
+        </div>
 
+        {/* RIGHT SIDE */}
+        <div className="relative h-full flex items-center overflow-hidden right-stage">
 
-          {/* 8 handles, protruding 10px beyond rim */}
-{[...Array(7)].map((_, i) => (
-  <div
-    key={i}
-    className="absolute w-4 h-193 wheel-spoke"
-    style={{
-      transform: `rotate(${i * 45}deg) translateY(-10px)`,
-      transformOrigin: "center center",
-    }}
-  />
-))}
-        </motion.div>
-
-        {/*Right-hand cards */}
-<div className="ml-auto mr-50 w-[60%] h-full relative flex items-center justify-center overflow-hidden">
           {cards.map((card, index) => {
             const totalCards = cards.length;
             const stopPoint = (totalCards - 1) / totalCards;
@@ -139,24 +135,22 @@ export default function AetherixScrollWheel() {
                 style={{ opacity: cardOpacity }}
                 className="absolute inset-0 flex items-center"
               >
-                {/* LEFT: Photo column */}
+                {/* PHOTO */}
                 <motion.div
                   style={{ y: cardY }}
-                  className="w-[40%] h-full flex items-center justify-center pl-8"
+                  className="card-photo"
                 >
                   <img
                     src={card.photo}
                     alt={card.title}
-                    className="w-full max-w-105 aspect-4/5 object-cover rounded-3xl shadow-2xl"
+                    className="w-full aspect-4/5 object-cover rounded-3xl shadow-2xl"
                   />
                 </motion.div>
 
-                {/* RIGHT: Card content column */}
                 <motion.div
                   style={{ y: cardY }}
-                  className="w-[60%] px-12"
+                  className="card-content"
                 >
-                  {/* Icon */}
                   <div className="w-16 h-16 mb-6">
                     <div
                       className="w-full h-full bg-linear-to-br from-[#A580FF] to-[#7D4CDB]"
@@ -173,17 +167,14 @@ export default function AetherixScrollWheel() {
                     />
                   </div>
 
-                  {/* Title */}
                   <h3 className="text-5xl font-extrabold leading-[1.2] pb-1 inline-block bg-linear-to-r from-[#B992FF] to-[#7D4CDB] bg-clip-text text-transparent mb-6">
                     {card.title}
                   </h3>
 
-                  {/* Description */}
                   <p className="text-gray-300 text-xl leading-relaxed mb-8">
                     {card.desc}
                   </p>
 
-                  {/* Footer */}
                   <div className="max-w-xl p-6 rounded-2xl bg-linear-to-r from-[#210046] to-[#130028] border border-[#7D4CDB]/40">
                     <p className="text-[#C8A2FF] text-lg font-medium">
                       {card.footer}
@@ -191,11 +182,31 @@ export default function AetherixScrollWheel() {
                   </div>
                 </motion.div>
               </motion.div>
-
             );
           })}
         </div>
+      </div>
 
+
+      {/* ================= MOBILE FALLBACK ================= */}
+      <div className="md:hidden px-6 py-20 space-y-20">
+        {cards.map((card, index) => (
+          <div key={index} className="space-y-6">
+            <img
+              src={card.photo}
+              alt={card.title}
+              className="w-full rounded-2xl object-cover"
+            />
+
+            <h3 className="text-2xl font-bold text-[#B992FF]">
+              {card.title}
+            </h3>
+
+            <p className="text-gray-300">{card.desc}</p>
+
+            <p className="text-[#C8A2FF] text-sm">{card.footer}</p>
+          </div>
+        ))}
       </div>
     </section>
   );
