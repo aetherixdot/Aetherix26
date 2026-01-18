@@ -15,15 +15,15 @@ export default function Navbar() {
         
         {/* Nav Links */}
         <nav className="hidden md:flex items-center gap-8 text-sm font-bold text-white">
-          <Link href="#" className="transition-colors hover:text-[var(--color-accent-hover)]">Services</Link>
-          <Link href="#" className="transition-colors hover:text-[var(--color-accent-hover)]">Works</Link>
-          <Link href="#" className="transition-colors hover:text-[var(--color-accent-hover)]">Products</Link>
-          <Link href="#" className="transition-colors hover:text-[var(--color-accent-hover)]">Contact</Link>
+          <Link href="#" className="transition-colors hover:text-(--color-accent-hover)">Services</Link>
+          <Link href="#works" className="transition-colors hover:text-(--color-accent-hover)">Works</Link>
+          {/* <Link href="#" className="transition-colors hover:text-[var(--color-accent-hover)]">Products</Link> */}
+          <Link href="#contact" className="transition-colors hover:text-(--color-accent-hover)">Contact</Link>
         </nav>
 
         {/* CTA */}
         <div className="flex items-center gap-4">
-          <Link href="#">
+          <Link href="#contact">
             <Button1>Start your project</Button1>
           </Link>
         </div>

@@ -1,110 +1,202 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { useRef } from "react";
-import { SpinBubbleLoader } from "react-custom-spinner";
 
-export default function About() {
-  const ref = useRef(null);
+const cards = [
+  {
+    title: "[ Why work with Aetherix ]",
+    desc: "Painless team augmentation. Aetherix is your compass in the digital ocean. We unite purpose-driven minds who blend precision with creativity to deliver faster, smarter, risk-free engineering. We don’t just join your team. We amplify it.",
+    footer: "Every partnership we build starts with trust and shared direction.",
+    icon: "/images/why-aetherix.svg",
+    photo: "/images/1.png",
+  },
+  {
+    title: "Driven by Curiosity",
+    desc: "Curiosity is where every idea begins. At Aetherix, we explore beyond conventions. We question. We experiment. We discover creative ways to turn imagination into reality.",
+    footer: "Progress belongs to those who keep asking better questions.",
+    icon: "/images/curiosity.svg",
+    photo: "/images/2.png",
+  },
+  {
+    title: "Engineered for Scalability",
+    desc: "Scalability is more than architecture. It is foresight and integrity. We build systems that grow with you, adapting as your vision expands while staying true to their foundation.",
+    footer: "We build for growth without sacrificing stability.",
+    icon: "/images/stack.svg",
+    photo: "/images/3.png",
+  },
+  {
+    title: "Design that Resonates",
+    desc: "We design for humans, not screens. Every motion and color feels intentional. Empathy guides every interaction so technology feels natural and connected.",
+    footer: "Good design listens before it speaks.",
+    icon: "/images/architecture.svg",
+    photo: "/images/4.png",
+  },
+  {
+    title: "Performance as a Promise",
+    desc: "Performance is respect for time. We fine-tune every layer for speed and stability. Great engineering works quietly in the background, letting the experience speak for itself.",
+    footer: "Reliability is the most honest form of performance.",
+    icon: "/images/performance.svg",
+    photo: "/images/5.png",
+  },
+  {
+    title: "Secure by Principle",
+    desc: "Security begins with respect. We protect data and people with care and transparency. Trust is not assumed here. It is earned through every decision we make.",
+    footer: "Security is a responsibility, not a feature.",
+    icon: "/images/secure.svg",
+    photo: "/images/6.png",
+  },
+  {
+    title: "The Realm of Aetherix",
+    desc: "The helm completes its turn and reveals our true value. People who care. Systems that endure. Partnerships built on purpose. We don’t just build software. We build digital legacies shaped by human values.",
+    footer: "This is what defines us when the work is done.",
+    icon: "/images/realm.svg",
+    photo: "/images/7.png",
+  },
+];
 
+
+
+
+export default function AetherixScrollWheel() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  // SCROLL SETUP
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start end", "start center"],
+    offset: ["start start", "end end"],
   });
 
-  const slideY = useTransform(scrollYProgress, [0, 1], ["10vh", "0vh"]);
-  const curveY = useTransform(scrollYProgress, [0, 0.5], ["15%", "0%"]);
-  const glowOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.3, 0.5],
-    [0, 0.8, 1]
-  );
+  // Number of rotation steps equals number of cards - 1
+  const steps = cards.length - 1;
 
-  // loader fade-in synced with glow
-  const loaderOpacity = useTransform(scrollYProgress, [0.25, 0.55], [0, 1]);
+  // Clamp scroll range so the wheel stops spinning when the last card hits center
+  const rotate = useTransform(scrollYProgress, [0, steps / (steps + 1), 1], [0, 540, 540]);
 
-  // subtle top → bottom motion
-  const loaderY = useTransform(scrollYProgress, [0.25, 0.55], ["-10px", "20px"]);
+  // Smooth spring for natural feel
+  const rotateSmooth = useSpring(rotate, { stiffness: 40, damping: 30, mass: 0.6 });
+
 
   return (
-    <section ref={ref} className="relative z-20">
-      <div className="h-screen" />
-
-      <motion.div
-        style={{ y: slideY }}
-        className="relative min-h-screen bg-[#121212]"
-      >
-        {/* CURVE + GLOW (UNCHANGED) */}
-        <div className="absolute inset-x-0 -top-[25vh] h-[40vh] overflow-hidden pointer-events-none z-10">
-          <motion.div
-            style={{ y: curveY, opacity: glowOpacity }}
-            className="absolute left-0 right-0 mx-auto w-full"
-          >
-            <div
-              className="absolute w-full"
-              style={{
-                height: "700px",
-                bottom: "-850px",
-                borderRadius: "50%",
-                background: "transparent",
-                boxShadow: "0 -35px 120px rgba(138,92,255,0.5)",
-              }}
-            />
-          </motion.div>
-        </div>
-
-        {/* 🔥 TOP → BOTTOM LOADER (below glow) */}
+    <section ref={ref} className="relative min-h-[900vh] bg-[#0C0018] text-white">
+      <div className="sticky top-0 h-screen flex items-center justify-between overflow-hidden">
+        {/* ship Helm – true circle, centred at left edge */}
         <motion.div
-          style={{ opacity: loaderOpacity, y: loaderY }}
-          className="absolute left-1/2 top-[18vh] z-20 -translate-x-1/2 pointer-events-none"
+          style={{ rotate: rotateSmooth }}
+          className="absolute -left-75 top-1/3 -translate-y-1/2 w-155 h-155 rounded-full flex items-center justify-center wheel-helm"
         >
-          <SpinBubbleLoader
-            size="40px"     // ✅ string
-            speed={0.8}     // ✅ number
-            color="#8A5CFF"
-            loading={true}
-          />
+          {/* Outer rim */}
+<div className="absolute w-full h-full rounded-full wheel-rim" />
+
+          {/* Inner hub */}
+<div className="absolute w-40 h-40 rounded-full wheel-hub" />
+
+
+          {/* 8 handles, protruding 10px beyond rim */}
+{[...Array(7)].map((_, i) => (
+  <div
+    key={i}
+    className="absolute w-4 h-193 wheel-spoke"
+    style={{
+      transform: `rotate(${i * 45}deg) translateY(-10px)`,
+      transformOrigin: "center center",
+    }}
+  />
+))}
         </motion.div>
 
-        {/* CONTENT */}
-        <div className="relative z-40 bg-[#121212] pt-[5vh] pb-20">
-          <div className="max-w-3xl mx-auto px-6 text-center">
+        {/*Right-hand cards */}
+<div className="ml-auto mr-50 w-[60%] h-full relative flex items-center justify-center overflow-hidden">
+          {cards.map((card, index) => {
+            const totalCards = cards.length;
+            const stopPoint = (totalCards - 1) / totalCards;
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="text-[#50C8B4] text-sm tracking-[0.2em] uppercase mb-8"
-            >
-              [ WHY WORK WITH AETHERIX ]
-            </motion.p>
+            const cardOpacity = useTransform(
+              scrollYProgress,
+              [
+                (index - 0.5) / totalCards,
+                index / totalCards,
+                (index + 0.5) / totalCards,
+                stopPoint,
+              ],
+              [0, 1, 0, 0]
+            );
 
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8"
-            >
-              Painless team augmentation.
-            </motion.h2>
+            const cardY = useTransform(
+              scrollYProgress,
+              [
+                (index - 0.5) / totalCards,
+                index / totalCards,
+                (index + 0.5) / totalCards,
+                stopPoint,
+              ],
+              [120, 0, -120, -120]
+            );
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="text-gray-400 text-lg leading-relaxed max-w-2xl mx-auto"
-            >
-              Aetherix is a modern development studio committed to help businesses
-              ship faster, scale smarter, and build products that last.
-              From APIs to infrastructure everything just works.
-            </motion.p>
+            return (
+              <motion.div
+                key={index}
+                style={{ opacity: cardOpacity }}
+                className="absolute inset-0 flex items-center"
+              >
+                {/* LEFT: Photo column */}
+                <motion.div
+                  style={{ y: cardY }}
+                  className="w-[40%] h-full flex items-center justify-center pl-8"
+                >
+                  <img
+                    src={card.photo}
+                    alt={card.title}
+                    className="w-full max-w-105 aspect-4/5 object-cover rounded-3xl shadow-2xl"
+                  />
+                </motion.div>
 
-          </div>
+                {/* RIGHT: Card content column */}
+                <motion.div
+                  style={{ y: cardY }}
+                  className="w-[60%] px-12"
+                >
+                  {/* Icon */}
+                  <div className="w-16 h-16 mb-6">
+                    <div
+                      className="w-full h-full bg-linear-to-br from-[#A580FF] to-[#7D4CDB]"
+                      style={{
+                        WebkitMaskImage: `url(${card.icon})`,
+                        WebkitMaskRepeat: "no-repeat",
+                        WebkitMaskPosition: "center",
+                        WebkitMaskSize: "contain",
+                        maskImage: `url(${card.icon})`,
+                        maskRepeat: "no-repeat",
+                        maskPosition: "center",
+                        maskSize: "contain",
+                      }}
+                    />
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-5xl font-extrabold leading-[1.2] pb-1 inline-block bg-linear-to-r from-[#B992FF] to-[#7D4CDB] bg-clip-text text-transparent mb-6">
+                    {card.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-gray-300 text-xl leading-relaxed mb-8">
+                    {card.desc}
+                  </p>
+
+                  {/* Footer */}
+                  <div className="max-w-xl p-6 rounded-2xl bg-linear-to-r from-[#210046] to-[#130028] border border-[#7D4CDB]/40">
+                    <p className="text-[#C8A2FF] text-lg font-medium">
+                      {card.footer}
+                    </p>
+                  </div>
+                </motion.div>
+              </motion.div>
+
+            );
+          })}
         </div>
-      </motion.div>
+
+      </div>
     </section>
   );
 }

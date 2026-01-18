@@ -1,18 +1,19 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "../styles/globals.css";
+import type { Metadata } from "next"
+import { Geist, Geist_Mono } from "next/font/google"
+import "../styles/globals.css"
+import CustomCursor from "../components/CustomCursor"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
   display: "swap",
-});
+})
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
   display: "swap",
-});
+})
 
 export const metadata: Metadata = {
   title: {
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
   },
   description:
     "Aetherix is a modern development platform to build fast, scale effortlessly, and ship reliable products.",
-  metadataBase: new URL("https://aetherix.dev"), // change later if needed
+  metadataBase: new URL("https://aetherix.dev"),
   openGraph: {
     title: "Aetherix",
     description:
@@ -33,21 +34,17 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Aetherix",
-    description:
-      "Build in a weekend. Scale to millions.",
+    description: "Build in a weekend. Scale to millions.",
   },
-};
+}
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-    >
+    <html lang="en" suppressHydrationWarning>
       <body
         className={[
           geistSans.variable,
@@ -55,8 +52,11 @@ export default function RootLayout({
           "bg-background text-foreground antialiased",
         ].join(" ")}
       >
+        {/* Custom Cursor (desktop only, client-side) */}
+        <CustomCursor />
+
         {children}
       </body>
     </html>
-  );
+  )
 }
