@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="neon-glow-growth">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <path d="M 200 750 L 350 550 L 500 650 L 750 250" fill="none" stroke="#A118E9" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" filter="url(#neon-glow-growth)" />
+  <circle cx="200" cy="750" r="12" fill="#A118E9" filter="url(#neon-glow-growth)" />
+  <circle cx="350" cy="550" r="12" fill="#A118E9" filter="url(#neon-glow-growth)" />
+  <circle cx="500" cy="650" r="12" fill="#A118E9" filter="url(#neon-glow-growth)" />
+  <circle cx="750" cy="250" r="12" fill="#A118E9" filter="url(#neon-glow-growth)" />
+  <path d="M 750 250 L 850 150 M 750 250 L 750 350" stroke="#A118E9" stroke-width="5" stroke-linecap="round" filter="url(#neon-glow-growth)" />
+</svg>

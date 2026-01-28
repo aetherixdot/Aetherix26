@@ -2,117 +2,118 @@
 
 import { useRef } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
-import { Button1 } from "../components/button"
 import Link from "next/link"
+import { Button1 } from "../components/button"
+import { DotLottieReact } from "@lottiefiles/dotlottie-react"
+import { useEffect, useState } from "react"
 
 export default function Hero() {
   const sectionRef = useRef<HTMLDivElement>(null)
-  const purpleGlow = useRef<HTMLDivElement>(null)
-  const whiteGlow = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
+  const [isMobile, setIsMobile] = useState(false)
 
-  // scroll tied to HERO only
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024)
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+    return () => window.removeEventListener("resize", checkMobile)
+  }, [])
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start start", "end start"],
+    offset: ["start start", "end center"],
   })
 
-  // parallax effects
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0])
-  const contentY = useTransform(scrollYProgress, [0, 1], ["0vh", "-20vh"])
-  const glowY = useTransform(scrollYProgress, [0, 1], ["0vh", "15vh"])
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!sectionRef.current || !purpleGlow.current || !whiteGlow.current) return
-
-    const rect = sectionRef.current.getBoundingClientRect()
-    const x = (e.clientX - rect.left) / rect.width - 0.5
-    const y = (e.clientY - rect.top) / rect.height - 0.5
-
-    purpleGlow.current.style.transform = `translate(${x * 80}px, ${y * 80}px)`
-    whiteGlow.current.style.transform = `translate(${-x * 80}px, ${-y * 80}px)`
-  }
+  // Enhanced parallax transformations
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0vh", isMobile ? "0vh" : "-25vh"])
+  const mediaY = useTransform(scrollYProgress, [0, 1], ["0vh", isMobile ? "0vh" : "-30vh"])
+  const mediaX = useTransform(scrollYProgress, [0, 1], ["0px", isMobile ? "0px" : "200px"])
+  
+  // Additional parallax layers for depth
+  const scale = useTransform(scrollYProgress, [0, 0.5], [1, isMobile ? 1 : 0.95])
+  const titleY = useTransform(scrollYProgress, [0, 0.6], ["0px", isMobile ? "0px" : "-80px"])
+  const descriptionY = useTransform(scrollYProgress, [0, 0.6], ["0px", isMobile ? "0px" : "-50px"])
+  const buttonsY = useTransform(scrollYProgress, [0, 0.6], ["0px", isMobile ? "0px" : "-30px"])
 
   return (
     <section
       ref={sectionRef}
-      id="hero"
-      onMouseMove={handleMouseMove}
-      className="relative flex min-h-screen items-center justify-center bg-[#121212] pt-10 overflow-hidden"
+      className={`relative min-h-screen lg:min-h-screen bg-[#121212] overflow-hidden ${
+        isMobile ? "flex flex-col justify-center items-center" : ""
+      }`}
     >
-      {/* WHITE GLOW (parallax) */}
-      <motion.div
-        ref={whiteGlow}
-        style={{
-          y: glowY,
-          background: `
-            radial-gradient(
-              circle,
-              rgba(255,255,255,0.30) 0%,
-              rgba(255,255,255,0.18) 35%,
-              rgba(255,255,255,0.08) 55%,
-              rgba(255,255,255,0.03) 70%,
-              transparent 82%
-            )
-          `,
-        }}
-        className="pointer-events-none absolute left-[12%] top-[12%] h-[520px] w-[520px] rounded-full blur-[170px] opacity-70 transition-transform duration-200 ease-out"
-      />
+      {/* Glow remains exactly as you designed */}
 
-      {/* PURPLE GLOW (parallax) */}
-      <motion.div
-        ref={purpleGlow}
-        style={{
-          y: glowY,
-          background: `
-            radial-gradient(
-              circle,
-              rgba(122,94,214,0.55) 0%,
-              rgba(122,94,214,0.35) 35%,
-              rgba(122,94,214,0.18) 55%,
-              rgba(122,94,214,0.06) 70%,
-              transparent 82%
-            )
-          `,
-        }}
-        className="pointer-events-none absolute right-[10%] bottom-[12%] h-[620px] w-[620px] rounded-full blur-[160px] opacity-90 transition-transform duration-200 ease-out"
-      />
+      {/* ================= GRID ================= */}
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center lg:items-center min-h-screen lg:min-h-screen py-0 lg:py-0">
 
-      {/* DIFFUSION */}
-      <div className="pointer-events-none absolute inset-0 backdrop-blur-[80px] opacity-40" />
+        {/* ================= LEFT CONTENT ================= */}
+        <motion.div
+          style={{ opacity: contentOpacity, y: contentY }}
+          className={`text-left order-1 lg:order-1 w-full ${
+            isMobile ? "text-center" : ""
+          }`}
+        >
+          <div className={`mb-4 sm:mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 sm:px-4 py-2 text-xs sm:text-sm text-gray-300 ${
+            isMobile ? "mx-auto" : ""
+          }`}>
+            <span>Engineering with intent</span>
+            <span className="text-(--color-accent)">→</span>
+          </div>
 
-      {/* CONTENT */}
-      <motion.div
-        style={{ opacity: contentOpacity, y: contentY }}
-        className="relative z-10 mx-auto max-w-5xl px-6 text-center"
-      >
-        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-gray-300">
-          <span>Let's Build</span>
-          <span className="text-[var(--color-accent)] font-semibold">→</span>
-        </div>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl font-medium tracking-tight text-white leading-tight">
+            Turning Visions Into
+            <br />
+            <span className="text-(--color-accent-hover)">
+              Impactful Experiences
+            </span>
+          </h1>
 
-        <h1 className="text-5xl md:text-6xl font-medium tracking-tight text-white">
-          Turning Visions Into
-          <br />
-          <span className="text-[var(--color-accent-hover)]">
-            Impactful Experiences
-          </span>
-        </h1>
+          <p className="mt-4 sm:mt-6 max-w-xl text-base sm:text-lg text-gray-300">
+            We design and engineer scalable digital products —
+            with clarity, performance, and longevity at the core.
+          </p>
 
-        <p className="mx-auto mt-6 max-w-3xl text-lg text-gray-300">
-          Aetherix is a modern development studio committed to help businesses
-          ship faster, scale smarter, and build products that last.
-          From APIs to infrastructure everything just works.
-        </p>
+          <div className={`mt-8 sm:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4 ${
+            isMobile ? "justify-center" : ""
+          }`}>
+            <Link href="#works" className="w-full sm:w-auto">
+              <Button1 className="w-full sm:w-auto">Explore our work</Button1>
+            </Link>
+            <Link
+              href="https://calendly.com/aetherixdot/30min"
+              target="_blank"
+              className="w-full sm:w-auto"
+            >
+              <Button1 variant="secondary" className="w-full sm:w-auto">Request a call</Button1>
+            </Link>
+          </div>
+        </motion.div>
 
-        <div className="mt-10 flex justify-center gap-4">
-          <Link href="#works">
-            <Button1>Explore our Works</Button1>
-          </Link>
-          <Link href="https://calendly.com/aetherixdot/30min" target="_blank">
-            <Button1 variant="secondary">Request a call</Button1>
-          </Link>
-        </div>
-      </motion.div>
+        {/* ================= RIGHT MOTION ================= */}
+        <motion.div
+          style={{ y: mediaY, x: mediaX, scale }}
+          className={`relative flex justify-center items-center order-2 lg:order-2 w-full ${
+            isMobile ? "h-125" : "h-64 sm:h-96 md:h-125 lg:h-screen"
+          }`}
+        >
+          <div className="relative w-full h-full max-w-md lg:max-w-lg">
+            {/* Soft frame */}
+            <div className="absolute inset-0 rounded-2xl lg:rounded-3xl" />
+
+            {/* Lottie Animation */}
+            <DotLottieReact
+              src="https://lottie.host/aa90b253-5c3d-44d6-ab93-8810cf812bd7/tcaq2sLKfl.lottie"
+              loop
+              autoplay
+              className={`relative z-10 rounded-2xl lg:rounded-3xl w-full h-full ${
+                isMobile ? "opacity-50" : "opacity-80"
+              }`}
+            />
+          </div>
+        </motion.div>
+      </div>
     </section>
   )
 }

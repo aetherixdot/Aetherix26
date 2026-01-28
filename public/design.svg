@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="neon-glow-design">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect x="150" y="200" width="350" height="250" fill="none" stroke="#A118E9" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" filter="url(#neon-glow-design)" />
+  <rect x="550" y="200" width="320" height="250" fill="none" stroke="#A118E9" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" filter="url(#neon-glow-design)" />
+  <rect x="150" y="550" width="720" height="220" fill="none" stroke="#A118E9" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" filter="url(#neon-glow-design)" />
+  <line x1="200" y1="300" x2="450" y2="300" stroke="#A118E9" stroke-width="4" stroke-linecap="round" filter="url(#neon-glow-design)" />
+  <line x1="200" y1="340" x2="450" y2="340" stroke="#A118E9" stroke-width="4" stroke-linecap="round" filter="url(#neon-glow-design)" />
+</svg>

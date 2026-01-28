@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="neon-glow-shield">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <path d="M 512 100 L 200 250 L 200 550 C 200 750 512 900 512 900 C 512 900 824 750 824 550 L 824 250 Z" fill="none" stroke="#A118E9" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" filter="url(#neon-glow-shield)" />
+  <path d="M 420 500 L 480 560 L 650 380" fill="none" stroke="#A118E9" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" filter="url(#neon-glow-shield)" />
+</svg>

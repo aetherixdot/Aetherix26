@@ -1,11 +1,18 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 
 export default function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null)
+  const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (!isMounted) return
+    
     const cursor = cursorRef.current
     if (!cursor) return
 
@@ -37,7 +44,9 @@ export default function CustomCursor() {
     return () => {
       document.removeEventListener("mousemove", move)
     }
-  }, [])
+  }, [isMounted])
+
+  if (!isMounted) return null
 
   return (
     <div
