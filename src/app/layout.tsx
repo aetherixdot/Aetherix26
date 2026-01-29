@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import "../styles/globals.css"
 import CustomCursor from "../components/CustomCursor"
+import AppShell from "../components/AppShell"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -52,10 +53,13 @@ export default function RootLayout({
           "bg-background text-foreground antialiased",
         ].join(" ")}
       >
-        {/* Custom Cursor (desktop only, client-side) */}
+        {/* Cursor stays global */}
         <CustomCursor />
 
-        {children}
+        {/* Loader + App */}
+        <AppShell>
+          {children}
+        </AppShell>
       </body>
     </html>
   )
