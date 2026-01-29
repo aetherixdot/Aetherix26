@@ -32,6 +32,7 @@
   --card-content-width: 520px;
 }
 
+
 /* =========================
    Tailwind Theme Bindings
 ========================= */
@@ -73,6 +74,7 @@
 html,
 body {
   height: 100%;
+  scroll-behavior: smooth;
 }
 
 body {

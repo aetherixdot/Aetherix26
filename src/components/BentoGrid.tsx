@@ -16,7 +16,7 @@ export default function BentoGrid() {
                 <img
                   src="/design.svg"
                   alt="Design"
-                  className="w-40 h-40 object-contain opacity-30"
+                  className="w-38 h-38 object-contain opacity-30"
                 />
               </div>
               <div>
@@ -41,7 +41,7 @@ export default function BentoGrid() {
             <img
               src="/shield.svg"
               alt="Shield"
-              className="w-20 h-20 mb-2.5 ml-5 object-contain opacity-30"
+              className="w-30 h-30 mb-2.5  object-contain opacity-30"
             />
             <div className="text-center">
               <p className="text-xl font-semibold text-white">Security</p>

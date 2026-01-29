@@ -162,7 +162,7 @@ export default function AetherixScrollWheel() {
           <Bubbles scrollYProgress={scrollYProgress} />
 
           {/* LEFT: WHEEL */}
-          <div className="wheel-scale opacity-50 lg:opacity-60 shrink-0 relative z-10">
+          <div className="wheel-scale opacity-60 lg:opacity-60 shrink-0 relative z-10 pointer-events-none">
             <motion.div
               style={{ rotate: rotateSmooth, width: 620, height: 620 }}
               className="wheel-helm rounded-full flex items-center justify-center will-change-transform"
@@ -183,7 +183,7 @@ export default function AetherixScrollWheel() {
           </div>
 
           {/* RIGHT: CONTENT */}
-          <div className="relative h-full flex items-center overflow-hidden right-stage flex-1">
+          <div className="relative h-full flex items-center overflow-hidden right-stage ">
             {cards.map((card, index) => {
               const totalCards = cards.length;
               const stopPoint = (totalCards - 1) / totalCards;
@@ -216,7 +216,7 @@ export default function AetherixScrollWheel() {
                   style={{ opacity: cardOpacity }}
                   className="absolute inset-0 flex items-center gap-8 lg:gap-12 will-change-opacity"
                 >
-                  <motion.div style={{ y: cardY }} className="card-photo h-full flex items-center justify-center shrink-0 will-change-transform">
+                  <motion.div style={{ y: cardY }} className="card-photo h-full flex items-center justify-center shrink-0 z-30 will-change-transform">
                     <img
                       src={card.photo}
                       alt={card.title}

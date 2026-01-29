@@ -1,6 +1,5 @@
 "use client"
 
-import { motion } from "framer-motion"
 import { useState } from "react"
 import clsx from "clsx"
 
@@ -17,159 +16,122 @@ const SERVICES: Service[] = [
     step: "p01",
     title: "Discovery Workshop",
     description:
-      "We begin by deeply understanding your business, users, and technical landscape. Through structured workshops and analysis, we align on goals, risks, and priorities—ensuring everyone moves forward with clarity and confidence.",
+      "We start by understanding your business, users, and goals. This phase helps us identify opportunities, reduce risks, and set a clear direction before we build anything.",
   },
   {
     id: "s2",
     step: "p02",
     title: "Predictive Planning",
     description:
-      "We translate insights into a clear execution plan. By defining milestones, dependencies, and technical decisions early, we reduce uncertainty and create a roadmap that supports both speed and long-term scalability.",
+      "We turn insights into a clear, actionable plan. Timelines, features, and technical decisions are defined early so the project stays focused and efficient.",
   },
   {
     id: "s3",
     step: "p03",
-    title: "IA & UX/UI Design",
+    title: "UX & UI Design",
     description:
-      "We design experiences that feel intuitive and purposeful. Information architecture, user flows, and interfaces are crafted with real users in mind—balancing usability, aesthetics, and business objectives.",
+      "We design simple, intuitive experiences that users love. Every screen is crafted to balance usability, aesthetics, and business impact.",
   },
   {
     id: "s4",
     step: "p04",
     title: "Development",
     description:
-      "Our engineers build clean, maintainable, and scalable systems. We focus on performance, reliability, and code quality—so your product is robust today and adaptable for tomorrow.",
+      "We build fast, reliable, and scalable products. Clean code, performance, and long-term maintainability are always our priority.",
   },
   {
     id: "s5",
     step: "p05",
-    title: "Testing",
+    title: "Testing & QA",
     description:
-      "Quality is validated at every stage. Through functional, performance, and security testing, we ensure the product behaves as expected and is ready to perform in real-world conditions.",
+      "We test across devices, browsers, and real-world scenarios. This ensures your product works smoothly and is ready for real users.",
   },
   {
     id: "s6",
     step: "p06",
-    title: "Maintenance",
+    title: "Launch & Maintenance",
     description:
-      "We support your product beyond launch. Continuous monitoring, improvements, and technical care help keep your system stable, secure, and aligned with evolving business needs.",
+      "After launch, we stay with you. We monitor performance, fix issues, and continuously improve your product as your business grows.",
   },
 ]
+
+
 
 export default function ServicesRail() {
   const [active, setActive] = useState<string | null>(null)
 
   return (
-    <section className="bg-[#121212] py-16">
+    <section className="bg-[#121212] py-20">
       <div className="mx-auto max-w-7xl px-6">
         <div className="flex flex-col md:flex-row overflow-hidden rounded-3xl border border-white/10">
+
           {SERVICES.map((service) => {
             const isActive = active === service.id
 
             return (
-              <motion.div
+              <div
                 key={service.id}
-                layout="position" // ✅ prevents height animation
-                transition={{
-                  type: "spring",
-                  stiffness: 110,
-                  damping: 28,
-                  mass: 0.9,
-                }}
                 onMouseEnter={() => setActive(service.id)}
                 onMouseLeave={() => setActive(null)}
                 className={clsx(
-                  "relative bg-[#0e0e0e] ",
-                  "h-100", // ✅ fixed height
+                  "relative bg-[#0e0e0e] flex flex-col overflow-hidden",
+                  "md:flex-1 md:basis-0 h-100",
                   "border-b md:border-b-0 md:border-r border-white/10 last:border-r-0",
-                  isActive ? "md:flex-[2.5]" : "md:flex-1"
+                  "transition-[flex,background-color] duration-700 ease-out",
+                  isActive && "md:flex-[2] bg-[#101010]"
                 )}
               >
-                {/* Glow */}
-                <div
-                  className={clsx(
-                    "absolute inset-0 transition-opacity duration-700",
-                    isActive ? "opacity-80" : "opacity-30"
-                  )}
-                  style={{
-                    background:
-                      "radial-gradient(circle at top left, rgba(122,94,214,0.35), transparent 65%)",
-                  }}
-                />
-
                 {/* Content */}
-                <div className="relative z-10 flex h-full flex-col items-start px-6 py-6">
-                  {/* Header block */}
-                  <div className="flex flex-col items-start">
+                <div className={clsx(
+                  "relative z-10 flex h-full flex-col items-start md:items-start px-6 py-8",
+                  isActive ? "md:py-16" : "md:py-12"
+                )}>
 
-                    {/* Step */}
-                    <span className="text-xs font-semibold tracking-wide text-white/50">
-                      {service.step}
-                    </span>
+                  {/* Step */}
+                  <span className="text-xs font-semibold tracking-wide text-white/50 mb-3">
+                    {service.step}
+                  </span>
 
-                    {/* Title */}
-                    <motion.h3
-                      layout="position"
-                      transition={{
-                        duration: 0.45,
-                        ease: [0.22, 1, 0.36, 1],
-                      }}
+                  {/* Title */}
+                  <div
+                    className={clsx(
+                      "transition-[padding] duration-400 ease-out",
+                      !isActive ? "md:pl-6" : "md:pl-0"
+                    )}
+                  >
+                    <h3
                       className={clsx(
-                        "mt-8 font-semibold text-white",
-                        "text-xl md:text-2xl",
-                        "transition-all duration-500 text-left",
-
-                        // Desktop inactive = vertical
-                        !isActive &&
-                        "md:[writing-mode:vertical-rl] md:opacity-70 md:tracking-wide",
-
-                        // Active OR mobile = horizontal
-                        "md:[writing-mode:horizontal-tb]"
+                        "font-semibold text-white",
+                        "text-lg md:text-2xl",
+                        "whitespace-nowrap",
+                        "transition-transform duration-500 ease-[0.22,1,0.36,1]",
+                        "origin-left",
+                        !isActive && "md:rotate-90",
+                        isActive && "md:rotate-0"
                       )}
                     >
                       {service.title}
-                    </motion.h3>
-
+                    </h3>
                   </div>
-                  <motion.p
-                    animate={{
-                      opacity: isActive ? 1 : 0,
-                      y: isActive ? 0 : 6,
-                    }}
-                    transition={{ duration: 0.35, ease: "easeOut" }}
-                    className="
-      mt-6
-      max-w-md
-      text-[16px]
-      leading-relaxed
-      text-gray-300
-      md:block
-      hidden
-    "
-                  >
-                    {service.description}
-                  </motion.p>
 
-                  {/* Mobile description (always visible) */}
-                  <p className="mt-5 text-[16px] leading-relaxed text-gray-300 md:hidden">
-                    {service.description}
-                  </p>
+                  {/* Description */}
+                  <div className="mt-3 max-w-sm">
+                    <p
+                      className={clsx(
+                        "text-gray-300 text-base leading-relaxed",
+                        "transition-opacity duration-200 ease-out",
+                        isActive ? "opacity-100" : "opacity-0"
+                      )}
+                    >
+                      {service.description}
+                    </p>
+                  </div>
 
-                  <div className="flex-1" />
-
-                  {/* Indicator */}
-                  <span
-                    className={clsx(
-                      "text-base transition-opacity duration-300",
-                      isActive ? "opacity-30" : "opacity-10"
-                    )}
-                  >
-                    +
-                  </span>
                 </div>
-              </motion.div>
+              </div>
             )
           })}
+
         </div>
       </div>
     </section>
