@@ -61,79 +61,108 @@ export default function ServicesRail() {
   const [active, setActive] = useState<string | null>(null)
 
   return (
-    <section className="bg-[#121212] py-20">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="flex flex-col md:flex-row overflow-hidden rounded-3xl border border-white/10">
+<section className="bg-[#121212] py-16 sm:py-20 lg:py-24">
+  <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div className="flex flex-col md:flex-row overflow-hidden rounded-3xl border border-white/10">
 
-          {SERVICES.map((service) => {
-            const isActive = active === service.id
+      {SERVICES.map((service) => {
+        const isActive = active === service.id
 
-            return (
+        return (
+          <div
+            key={service.id}
+            onMouseEnter={() => setActive(service.id)}
+            onMouseLeave={() => setActive(null)}
+            className={clsx(
+              "relative bg-[#0e0e0e] flex flex-col overflow-hidden",
+
+              // 🔒 Height only where hover/flexing exists
+              "md:h-100",
+
+              // 🔒 Flex behavior only on md+
+              "md:flex-1 md:basis-0",
+
+              "border-b md:border-b-0 md:border-r border-white/10 last:border-r-0",
+              "transition-[flex,background-color] duration-700 ease-out",
+
+              // 🔒 Expansion only on md+
+              isActive && "md:flex-[2] bg-[#101010]"
+            )}
+          >
+            {/* Content */}
+            <div
+              className={clsx(
+                "relative z-10 flex h-full flex-col items-start",
+
+                // 🔒 Padding scales safely
+                "px-4 sm:px-6",
+                "py-6 sm:py-8",
+
+                // 🔒 Extra vertical space only when hover exists
+                isActive ? "md:py-16" : "md:py-12"
+              )}
+            >
+              {/* Step */}
+              <span className="text-[11px] sm:text-xs font-semibold tracking-wide text-white/50 mb-2 sm:mb-3">
+                {service.step}
+              </span>
+
+              {/* Title */}
               <div
-                key={service.id}
-                onMouseEnter={() => setActive(service.id)}
-                onMouseLeave={() => setActive(null)}
                 className={clsx(
-                  "relative bg-[#0e0e0e] flex flex-col overflow-hidden",
-                  "md:flex-1 md:basis-0 h-100",
-                  "border-b md:border-b-0 md:border-r border-white/10 last:border-r-0",
-                  "transition-[flex,background-color] duration-700 ease-out",
-                  isActive && "md:flex-[2] bg-[#101010]"
+                  "transition-[padding] duration-400 ease-out",
+
+                  // 🔒 Padding shift only on md+
+                  !isActive ? "md:pl-6" : "md:pl-0"
                 )}
               >
-                {/* Content */}
-                <div className={clsx(
-                  "relative z-10 flex h-full flex-col items-start md:items-start px-6 py-8",
-                  isActive ? "md:py-16" : "md:py-12"
-                )}>
+                <h3
+                  className={clsx(
+                    "font-semibold text-white",
 
-                  {/* Step */}
-                  <span className="text-xs font-semibold tracking-wide text-white/50 mb-3">
-                    {service.step}
-                  </span>
+                    // 🔒 Responsive typography
+                    "text-base sm:text-lg md:text-xl lg:text-2xl",
 
-                  {/* Title */}
-                  <div
-                    className={clsx(
-                      "transition-[padding] duration-400 ease-out",
-                      !isActive ? "md:pl-6" : "md:pl-0"
-                    )}
-                  >
-                    <h3
-                      className={clsx(
-                        "font-semibold text-white",
-                        "text-lg md:text-2xl",
-                        "whitespace-nowrap",
-                        "transition-transform duration-500 ease-[0.22,1,0.36,1]",
-                        "origin-left",
-                        !isActive && "md:rotate-90",
-                        isActive && "md:rotate-0"
-                      )}
-                    >
-                      {service.title}
-                    </h3>
-                  </div>
+                    "whitespace-nowrap",
+                    "transition-transform duration-500 ease-[0.22,1,0.36,1]",
+                    "origin-left",
 
-                  {/* Description */}
-                  <div className="mt-3 max-w-sm">
-                    <p
-                      className={clsx(
-                        "text-gray-300 text-base leading-relaxed",
-                        "transition-opacity duration-200 ease-out",
-                        isActive ? "opacity-100" : "opacity-0"
-                      )}
-                    >
-                      {service.description}
-                    </p>
-                  </div>
-
-                </div>
+                    // 🔒 Rotation only where horizontal rail exists
+                    !isActive && "md:rotate-90",
+                    isActive && "md:rotate-0"
+                  )}
+                >
+                  {service.title}
+                </h3>
               </div>
-            )
-          })}
 
-        </div>
-      </div>
-    </section>
+              {/* Description */}
+              <div className="mt-3 sm:mt-4 max-w-xs sm:max-w-sm lg:max-w-md">
+                <p
+                  className={clsx(
+                    "text-gray-300 leading-relaxed",
+                    "text-sm sm:text-base",
+
+                    "transition-opacity duration-200 ease-out",
+
+                    // ✅ Mobile: always visible
+                    "opacity-100",
+
+                    // ✅ md+: controlled by hover
+                    !isActive && "md:opacity-0"
+                  )}
+                >
+                  {service.description}
+                </p>
+              </div>
+            </div>
+          </div>
+        )
+      })}
+
+    </div>
+  </div>
+</section>
+
   )
 }

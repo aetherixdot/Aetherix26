@@ -26,42 +26,42 @@ export function Button1({
 }
 
 /* =========================
-   Base Styles (Supabase-like)
+   Base Styles
 ========================= */
 const baseStyles = `
-  relative inline-flex items-center justify-center
-  h-[38px] px-4 py-2
-  text-sm font-normal
-  rounded-md
-  cursor-pointer
-  transition-colors duration-200 ease-out
-  outline-none
-  focus-visible:outline
-  focus-visible:outline-4
-  focus-visible:outline-offset-1
+  inline-flex items-center justify-center gap-2
+  font-inherit text-[13px] font-medium uppercase tracking-[0.4px]
+  rounded-full
+  px-6 py-4
+  transition-all duration-200 ease-out
   active:translate-y-[1px]
+  focus:outline-none
 `
 
 /* =========================
-   Variants
+   Variants (CSS → Tailwind)
 ========================= */
 const variantStyles: Record<ButtonVariant, string> = {
   primary: `
-    bg-[#7A5ED6]
-    text-white
-    border border-[#6A4FC4]/80
+    text-[#56657A]
+    bg-[#e0e8ef]
+    border-2 border-white/30
 
-    hover:bg-[#8B74E6]
-    hover:border-[#6A4FC4]
+  hover:shadow-[-2px_-1px_8px_rgba(255,255,255,1),_2px_1px_8px_rgba(95,157,231,0.48)]
 
-    focus-visible:outline-[#5B3FB0]
+    hover:text-[#516d91]
+    hover:bg-[#E5EDF5]
+    hover:shadow-[-2px_-1px_8px_rgba(255,255,255,1),_2px_1px_8px_rgba(95,157,231,0.48)]
+
+    active:shadow-none
   `,
+
   secondary: `
-    bg-neutral-900
     text-white
+    bg-neutral-900
     border border-white/10
+
     hover:bg-neutral-800
     hover:border-white/20
-    focus-visible:outline-neutral-700
   `,
 }

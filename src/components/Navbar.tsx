@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { FaTimes } from 'react-icons/fa'
 import { CiMenuFries } from 'react-icons/ci'
 import { Button1 } from '../components/button'
+import Image from 'next/image'
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -30,12 +31,22 @@ export default function Navbar() {
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
 
         {/* Logo */}
-        <Link href="/" className="text-xl font-semibold text-white">
-          AETHERIX.
-        </Link>
+<Link href="/" className="flex items-center gap-2">
+  <Image
+    src="/images/image.png"
+    alt="Aetherix logo"
+    width={40}
+    height={40}
+    priority
+    className="object-contain"
+  />
+  <span className="text-2xl font-semibold text-white">
+    AETHERIX.
+  </span>
+</Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-8 text-sm font-bold text-white">
+        <nav className="hidden md:flex items-center gap-8 text-md font-bold text-white">
           <Link href="#services" className="hover:text-(--color-accent-hover) transition-colors">
             Services
           </Link>
@@ -83,7 +94,7 @@ export default function Navbar() {
           </Link>
 
           <Link href="#contact" onClick={() => setMenuOpen(false)}>
-            <Button1>Start your project</Button1>
+            <Button1 >Start your project</Button1>
           </Link>
         </ul>
       </div>
