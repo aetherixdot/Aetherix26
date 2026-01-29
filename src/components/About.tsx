@@ -2,13 +2,13 @@
 
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { useRef } from "react";
-
+import GridPattern from "../components/GridPattern";
 const cards = [
   {
     title: "Why work with Aetherix ?",
     desc: "Painless team augmentation. Aetherix is your compass in the digital ocean. We unite purpose-driven minds who blend precision with creativity to deliver faster, smarter, risk-free engineering. We don’t just join your team. We amplify it.",
     footer: "Every partnership we build starts with trust and shared direction.",
-    icon: "/images/why-aetherix.svg",
+    icon: "/images/image.png",
     photo: "/images/1.png",
   },
   {
@@ -56,11 +56,11 @@ const cards = [
 ];
 
 // Individual Bubble Component
-function Bubble({ 
-  index, 
-  scrollYProgress 
-}: { 
-  index: number; 
+function Bubble({
+  index,
+  scrollYProgress
+}: {
+  index: number;
   scrollYProgress: any;
 }) {
   // Use index-based deterministic values instead of Math.random()
@@ -71,7 +71,7 @@ function Bubble({
   const xVariation = ((index * 23) % 100) - 50;
   const opacityVariation1 = 0.3 + ((index * 13) % 50) * 0.01;
   const opacityVariation2 = 0.3 + ((index * 17) % 50) * 0.01;
-  
+
   // Detach bubbles from rotation - simpler independent animations
   const bubbleY = useTransform(scrollYProgress, [0, 1], [0, -speed]);
   const bubbleX = useTransform(scrollYProgress, [0, 1], [0, xVariation]);
@@ -144,33 +144,47 @@ export default function AetherixScrollWheel() {
 
   return (
     <section ref={ref} className="relative bg-[#121212] text-white">
-      {/* ================= SECTION HEADING ================= */}
-      <div className="px-6 sm:px-12 md:px-24 pt-12 sm:pt-16 md:pt-20 pb-10 sm:pb-12 md:pb-16">
-        <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-white mb-3 sm:mb-4">
-        Our <span className="text-(--color-accent-hover)">Values</span>
-        </h2>
-        <p className="text-base sm:text-lg md:text-xl text-white/70 max-w-2xl leading-relaxed">
-          What defines us. The principles that guide every decision, every design, every line of code.
-        </p>
-      </div>
+{/* ================= SECTION HEADING ================= */}
+<div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 pb-12 md:pb-20">
+
+  {/* BACKGROUND PATTERN */}
+  <div className="absolute inset-y-0 right-0 w-full -top-[25vh] h-158 hidden md:block pointer-events-none">
+    <GridPattern />
+  </div>
+
+  {/* FOREGROUND CONTENT */}
+  <div className="relative z-10 max-w-3xl">
+    <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-white mb-3 sm:mb-4">
+      Our <span className="text-(--color-accent-hover)">Values</span>
+    </h2>
+    <p className="text-base sm:text-lg md:text-xl text-white/70 leading-relaxed">
+      What defines us. The principles that guide every decision, every design,
+      every line of code.
+    </p>
+  </div>
+
+</div>
+
+
+
 
       {/* ================= DESKTOP / TABLET ONLY ================= */}
       <div className="hidden md:block min-h-[800vh] lg:min-h-[900vh]">
         <div className="sticky top-0 h-screen flex items-center justify-between overflow-hidden px-6 lg:px-12" style={{ willChange: "transform" }}>
-          
+
           {/* FLOATING BUBBLES */}
           <Bubbles scrollYProgress={scrollYProgress} />
 
           {/* LEFT: WHEEL */}
-          <div className="wheel-scale opacity-60 lg:opacity-60 shrink-0 relative z-10 pointer-events-none">
+          <div className="wheel-scale opacity-40 lg:opacity-28 shrink-0 relative z-0 pointer-events-none">
             <motion.div
-              style={{ rotate: rotateSmooth, width: 620, height: 620 }}
+              style={{ rotate: rotateSmooth, width: 560, height: 560 }}
               className="wheel-helm rounded-full flex items-center justify-center will-change-transform"
             >
               {[...Array(7)].map((_, i) => (
                 <div
                   key={i}
-                  className="absolute w-4 h-193 wheel-spoke"
+                  className="absolute w-4 h-170 wheel-spoke"
                   style={{
                     transform: `rotate(${i * 45}deg) translateY(-10px)`,
                     transformOrigin: "center center",
@@ -224,8 +238,40 @@ export default function AetherixScrollWheel() {
                     />
                   </motion.div>
 
-                  <motion.div style={{ y: cardY }} className="card-content h-full flex flex-col justify-center shrink-0 will-change-transform">
-                    <div className="w-12 h-12 md:w-16 md:h-16 mb-4 md:mb-6">
+                  <motion.div
+                    style={{ y: cardY }}
+                    className="
+    card-content
+    relative
+    h-auto
+    max-w-xl
+    flex
+    flex-col
+    justify-center
+
+    rounded-3xl
+    px-6 md:px-8
+    py-6 md:py-8
+
+    bg-white/1
+    backdrop-blur-xl
+    border border-white/15
+
+    shadow-[0_30px_80px_rgba(0,0,0,0.55)]
+    will-change-transform
+
+    after:absolute
+    after:inset-0
+    after:rounded-3xl
+    after:bg-linear-to-br
+    after:from-white/10
+    after:via-transparent
+    after:to-transparent
+    after:pointer-events-none
+  "
+                  >
+                    {/* ICON */}
+                    <div className="w-12 h-12 md:w-14 md:h-14 mb-5 relative z-10">
                       <div
                         className="w-full h-full bg-linear-to-br from-[#A580FF] to-[#7D4CDB]"
                         style={{
@@ -237,20 +283,31 @@ export default function AetherixScrollWheel() {
                       />
                     </div>
 
-                    <h3 className="text-3xl md:text-4xl lg:text-5xl font-medium mb-4 md:mb-6 text-(--color-accent-hover)">
+                    {/* TITLE */}
+                    <h3 className="text-3xl md:text-4xl lg:text-5xl font-medium mb-4 md:mb-5 text-(--color-accent-hover) relative z-10">
                       {card.title}
                     </h3>
 
-                    <p className="text-white text-base md:text-lg lg:text-xl leading-relaxed mb-6 md:mb-8">
+                    {/* DESCRIPTION */}
+                    <p className="text-white/90 text-base md:text-lg lg:text-xl leading-relaxed mb-5 md:mb-6 relative z-10">
                       {card.desc}
                     </p>
 
-                    <div className="max-w-xl p-4 md:p-6 rounded-2xl bg-white/10 border border-white/15">
-                      <p className="text-white text-base md:text-lg font-medium">
-                        {card.footer}
-                      </p>
-                    </div>
+                    {/* FOOTER (now elegant, not boxed) */}
+                    <p className="
+    text-sm md:text-base
+    font-medium
+    text-[#C8A2FF]
+    italic
+    relative z-10
+    before:content-['—']
+    before:mr-2
+    before:text-white/30
+  ">
+                      {card.footer}
+                    </p>
                   </motion.div>
+
                 </motion.div>
               );
             })}
@@ -302,49 +359,74 @@ export default function AetherixScrollWheel() {
       </div>
 
       {/* ================= MOBILE ONLY ================= */}
-      <div className="sm:hidden px-4 py-12 space-y-16">
-        {cards.map((card, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="space-y-4"
-          >
-            <img
-              src={card.photo}
-              alt={card.title}
-              className="w-full rounded-xl object-cover aspect-4/5"
-            />
+<div className="sm:hidden px-4 py-12 space-y-16">
+  {cards.map((card, index) => (
+    <motion.div
+      key={index}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="flex justify-center"
+    >
+      {/* CONTENT WRAPPER (controls width) */}
+      <div className="w-full max-w-md space-y-4 text-left">
+        
+{/* IMAGE WRAPPER */}
+<div className="w-full max-w-md h-[20vh] flex items-center justify-center overflow-hidden rounded-xl">
+  <img
+    src={card.photo}
+    alt={card.title}
+    className="max-h-full object-contain"
+  />
+</div>
 
-            <div className="w-12 h-12">
-              <div
-                className="w-full h-full bg-linear-to-br from-[#A580FF] to-[#7D4CDB]"
-                style={{
-                  WebkitMaskImage: `url(${card.icon})`,
-                  WebkitMaskRepeat: "no-repeat",
-                  WebkitMaskPosition: "center",
-                  WebkitMaskSize: "contain",
-                }}
-              />
-            </div>
 
-            <h3 className="text-xl font-medium text-(--color-accent-hover)">
-              {card.title}
-            </h3>
 
-            <p className="text-white text-sm leading-relaxed">
-              {card.desc}
-            </p>
 
-            <div className="p-3 rounded-lg bg-white/5 border border-white/10">
-              <p className="text-[#C8A2FF] text-xs font-medium">
-                {card.footer}
-              </p>
-            </div>
-          </motion.div>
-        ))}
+        {/* ICON */}
+        <div className="w-10 h-10 mb-1">
+          <div
+            className="w-full h-full bg-linear-to-br from-[#A580FF] to-[#7D4CDB]"
+            style={{
+              WebkitMaskImage: `url(${card.icon})`,
+              WebkitMaskRepeat: "no-repeat",
+              WebkitMaskPosition: "center",
+              WebkitMaskSize: "contain",
+            }}
+          />
+        </div>
+
+        {/* TITLE */}
+        <h3 className="text-lg font-medium text-(--color-accent-hover) leading-snug">
+          {card.title}
+        </h3>
+
+        {/* DESCRIPTION */}
+        <p className="text-white/90 text-sm leading-relaxed">
+          {card.desc}
+        </p>
+
+        {/* FOOTER */}
+        <p
+          className="
+            text-xs
+            font-medium
+            text-[#C8A2FF]
+            italic
+            pt-1
+            before:content-['—']
+            before:mr-1.5
+            before:text-white/30
+          "
+        >
+          {card.footer}
+        </p>
+
       </div>
+    </motion.div>
+  ))}
+</div>
+
     </section>
   );
 }

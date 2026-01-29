@@ -61,8 +61,28 @@ export default function ServicesRail() {
   const [active, setActive] = useState<string | null>(null)
 
   return (
-<section className="bg-[#121212] py-16 sm:py-20 lg:py-24">
+<section id="services" className="bg-[#121212] py-16 sm:py-20 lg:py-24">
+  
   <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    {/* ================= SECTION HEADING ================= */}
+<div className="mb-12 sm:mb-16 lg:mb-20 max-w-3xl">
+  <span className="text-xs sm:text-sm font-medium tracking-wider text-white/50 uppercase">
+    Our Process
+  </span>
+
+  <h2 className="mt-3 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-white leading-tight">
+    How we turn ideas into
+    <span className="block text-(--color-accent-hover)">
+      scalable digital products
+    </span>
+  </h2>
+
+  <p className="mt-4 sm:mt-5 text-sm sm:text-base text-white/70 leading-relaxed">
+    A structured, human-centered approach that reduces risk, improves clarity,
+    and delivers results you can scale with confidence.
+  </p>
+</div>
+
     <div className="flex flex-col md:flex-row overflow-hidden rounded-3xl border border-white/10">
 
       {SERVICES.map((service) => {

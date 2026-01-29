@@ -35,12 +35,12 @@ export default function Navbar() {
   <Image
     src="/images/image.png"
     alt="Aetherix logo"
-    width={40}
-    height={40}
+    width={50}
+    height={50}
     priority
     className="object-contain"
   />
-  <span className="text-2xl font-semibold text-white">
+  <span className="text-3xl font-semibold text-white">
     AETHERIX.
   </span>
 </Link>

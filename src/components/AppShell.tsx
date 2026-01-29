@@ -15,7 +15,7 @@ export default function AppShell({
     // Fallback safety (in case video fails)
     const timeout = setTimeout(() => {
       setShowLoader(false)
-    }, 5000)
+    }, 7500)
 
     return () => clearTimeout(timeout)
   }, [])

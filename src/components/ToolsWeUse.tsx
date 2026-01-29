@@ -17,7 +17,7 @@ export default function ToolsWeUse() {
   const [active, setActive] = useState(0)
 
   return (
-    <section id="services" className="bg-[#121212] py-24     scroll-mt-20
+    <section  className="bg-[#121212] py-24     scroll-mt-20
     md:scroll-mt-24">
       <div className="mx-auto max-w-7xl px-6">
 

@@ -12,7 +12,7 @@ export default function Loader({ isVisible, onFinish }: LoaderProps) {
     <AnimatePresence>
       {isVisible && (
 <motion.div
-  className="fixed inset-0 z-[9999] bg-[#121212] flex items-center justify-center"
+  className="fixed inset-0 z-[9999] bg-black flex items-center justify-center"
   initial={{ opacity: 1 }}
   exit={{ opacity: 0 }}
   transition={{ duration: 0.6, ease: "easeInOut" }}

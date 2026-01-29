@@ -74,7 +74,7 @@ export default function BentoGrid() {
               <img
                 src="/growth.svg"
                 alt="Growth"
-                className="w-30 h-30 object-contain opacity-30"
+                className="w-30 h-30 object-contain opacity-30 color-white"
               />
             </div>
             <div>
