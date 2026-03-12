@@ -10,7 +10,7 @@ import Section from "../components/Service"
 
 export default function Home() {
   return (
-    <>
+    <main className="relative">
       <Navbar />
       <Hero />
       <About />
@@ -20,6 +20,6 @@ export default function Home() {
       <WorkSection />
       <ContactCTA />
       <Footer />
-    </>
+    </main>
   )
 }

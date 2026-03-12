@@ -32,7 +32,7 @@ export default function ToolsWeUse() {
           </h2>
 
           {/* ICON ROW */}
-          <div className="flex flex-wrap items-center gap-6">
+          <div className="w-full flex flex-wrap items-center justify-center gap-4 sm:gap-6 md:w-auto md:justify-end">
             {TOOLS.map((tool, index) => {
               const isActive = active === index
 

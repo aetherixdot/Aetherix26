@@ -7,10 +7,10 @@ export default function BentoGrid() {
     <section className="relative bg-[#121212] py-38">
       <div className="mx-auto max-w-7xl px-6">
 
-        <div className="grid grid-cols-1 md:grid-cols-4 auto-rows-[260px] gap-6">
+        <div className="grid grid-cols-1 min-[360px]:grid-cols-2 md:grid-cols-4 auto-rows-auto md:auto-rows-[260px] gap-5 sm:gap-6">
 
           {/* ================= Row 1 — Human-centered (wide) ================= */}
-          <Card className="md:col-span-2 p-6 justify-center">
+          <Card className="min-[360px]:col-span-2 md:col-span-2 p-6 justify-center">
             <div className="grid grid-cols-[auto_1fr] items-center gap-6">
               <div className="flex items-center justify-center">
                 <img
@@ -50,21 +50,21 @@ export default function BentoGrid() {
           </Card>
 
           {/* ================= Row 1 & 2 — Performance (tall) ================= */}
-          <Card className="md:row-span-2 flex flex-col items-start justify-start gap-6">
-            <div className="w-full h-64 flex items-center justify-center">
+          <Card className="md:row-span-2 flex flex-col items-start justify-start gap-4 md:gap-6">
+            <div className="w-full h-32 sm:h-40 md:h-64 flex items-center justify-center">
               <img
                 src="/thunder.svg"
                 alt="Thunder"
-                className="w-64 h-64 object-contain opacity-30"
+                className="w-24 h-24 sm:w-32 sm:h-32 md:w-64 md:h-64 object-contain opacity-30"
               />
             </div>
             <div className="relative z-10 w-full">
-              <h3 className="text-3xl font-medium text-white">
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-medium text-white">
                 Performance
                 <br />
                 <span className="text-gray-200">is respect for time.</span>
               </h3>
-              <p className="mt-6 text-sm text-gray-300">Lightning-fast delivery. Optimized at every layer. Your users will feel the difference.</p>
+              <p className="mt-3 sm:mt-4 md:mt-6 text-xs sm:text-sm text-gray-300">Lightning-fast delivery. Optimized at every layer. Your users will feel the difference.</p>
             </div>
           </Card>
 
@@ -123,7 +123,7 @@ function Card({
     <div
       className={`
         group relative overflow-hidden rounded-3xl
-        border border-white/10 bg-[#0e0e0e] p-8
+        border border-white/10 bg-[#0e0e0e] p-6 sm:p-8
         transition-all duration-300
         hover:border-white/20 hover:-translate-y-1
         ${center ? "flex items-center justify-center" : ""}

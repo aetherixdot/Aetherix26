@@ -77,7 +77,7 @@ export default function ServicesRail() {
     </span>
   </h2>
 
-  <p className="mt-4 sm:mt-5 text-sm sm:text-base text-white/70 leading-relaxed">
+  <p className="mt-4 sm:mt-5 text-sm sm:text-base text-white/70 leading-relaxed text-justify">
     A structured, human-centered approach that reduces risk, improves clarity,
     and delivers results you can scale with confidence.
   </p>
@@ -160,7 +160,7 @@ export default function ServicesRail() {
               <div className="mt-3 sm:mt-4 max-w-xs sm:max-w-sm lg:max-w-md">
                 <p
                   className={clsx(
-                    "text-gray-300 leading-relaxed",
+                    "text-gray-300 leading-relaxed text-justify",
                     "text-sm sm:text-base",
 
                     "transition-opacity duration-200 ease-out",
