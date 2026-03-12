@@ -33,10 +33,10 @@ export default function Navbar() {
         {/* Logo */}
 <Link href="/" className="flex items-center gap-2">
   <Image
-    src="/images/image.png"
+    src="/images/Aetherix-white.svg"
     alt="Aetherix logo"
-    width={50}
-    height={50}
+    width={60}
+    height={60}
     priority
     className="object-contain"
   />
