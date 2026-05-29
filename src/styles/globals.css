@@ -6,6 +6,8 @@
 :root {
   --background: #121212;
   --foreground: #e5e7eb;
+  --font-heading: var(--font-syne);
+  --font-body: var(--font-dm-sans);
 
   --muted: #9ca3af;
   --border: rgba(255, 255, 255, 0.1);
@@ -47,8 +49,26 @@
   --color-accent-border: var(--accent-border);
   --color-accent-focus: var(--accent-focus);
 
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-body);
+}
+
+/* =========================
+   Font Presets
+========================= */
+.font-preset-aetherix-balance {
+  --font-heading: var(--font-syne);
+  --font-body: var(--font-dm-sans);
+}
+
+.font-preset-aetherix-clean {
+  --font-heading: var(--font-space-grotesk);
+  --font-body: var(--font-manrope);
+}
+
+.font-preset-aetherix-editorial {
+  --font-heading: var(--font-playfair-display);
+  --font-body: var(--font-inter);
 }
 
 /* =========================
@@ -82,9 +102,17 @@ body {
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans, Arial, Helvetica, sans-serif);
+  font-family: var(--font-body, Arial, Helvetica, sans-serif);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+.brand-display {
+  font-family: var(--font-heading, Arial, Helvetica, sans-serif);
+  letter-spacing: -0.02em;
 }
 
 /* =========================

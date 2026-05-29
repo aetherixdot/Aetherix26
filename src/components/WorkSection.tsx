@@ -5,27 +5,13 @@ import Image from "next/image"
 import Link from "next/link"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { Button1 } from "../components/button"
 
 gsap.registerPlugin(ScrollTrigger)
 
 const works = [
   {
-    title: "Precise Eats",
-    description:
-      "A modern dietitian platform focused on personalised nutrition, clean UI, and seamless appointment booking.",
-    image: "/work/precise-eats.png",
-    url: "https://www.preciseeats.in",
-  },
-  {
-    title: "ESM Thambis",
-    description:
-      "A platform supporting veterans and their families with resources, updates, and community-driven content.",
-    image: "/work/esm-thambis.png",
-    url: "https://www.esmthambis.com",
-  },
-  {
     title: "Anna University – Regional Campus",
+    year: "2024",
     description:
       "Official university website built for scalability, accessibility, and institutional credibility.",
     image: "/work/autmdu.png",
@@ -33,17 +19,27 @@ const works = [
   },
   {
     title: "Attendance Management System",
+    year: "2024",
     description:
       "A secure internal system for tracking attendance with role-based access and real-time updates.",
     image: "/work/attendance.png",
     url: "https://attendance.autmdu.in",
   },
   {
-    title: "Awareness Academy",
+    title: "ESM Thambis",
+    year: "2024",
     description:
-      "An educational platform with course listings, blogs, and a soft, calming visual identity.",
-    image: "/work/awareness.png",
-    url: "https://awarenessacademy.in",
+      "A platform supporting veterans and their families with resources, updates, and community-driven content.",
+    image: "/work/esm-thambis.png",
+    url: "https://www.esmthambis.com",
+  },
+  {
+    title: "Precise Eats",
+    year: "2025",
+    description:
+      "A modern dietitian platform focused on personalised nutrition, clean UI, and seamless appointment booking.",
+    image: "/work/precise-eats.png",
+    url: "https://www.preciseeats.in",
   },
 ]
 function WorkLinkButton({ children }: { children: React.ReactNode }) {
@@ -189,7 +185,7 @@ export default function WorkSection() {
         {/* Header */}
         <div className="mb-16 text-center">
           <h2 className="text-4xl md:text-5xl font-medium text-white">
-            Products we’ve shipped with pride
+            Projects we've shipped with pride
           </h2>
         </div>
 
@@ -245,9 +241,16 @@ export default function WorkSection() {
                         : "order-1 pr-24 text-right items-end"
                       }`}
                   >
-                    <h3 className="text-2xl font-medium text-white">
-                      {work.title}
-                    </h3>
+                    <div className="flex items-center gap-3">
+                      <h3 className="text-2xl font-medium text-white">
+                        {work.title}
+                      </h3>
+                      {work.year ? (
+                        <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold tracking-wide text-gray-200">
+                          {work.year}
+                        </span>
+                      ) : null}
+                    </div>
 
                     <p className="mt-4 max-w-md text-gray-300">
                       {work.description}
@@ -300,9 +303,16 @@ export default function WorkSection() {
                 />
 
                 <div className="p-6">
-                  <h3 className="text-xl font-medium text-white">
-                    {work.title}
-                  </h3>
+                  <div className="flex items-center gap-3">
+                    <h3 className="text-xl font-medium text-white">
+                      {work.title}
+                    </h3>
+                    {work.year ? (
+                      <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-semibold tracking-wide text-gray-200">
+                        {work.year}
+                      </span>
+                    ) : null}
+                  </div>
                   <p className="mt-3 text-sm text-gray-300">
                     {work.description}
                   </p>
@@ -321,3 +331,4 @@ export default function WorkSection() {
     </section>
   )
 }
+

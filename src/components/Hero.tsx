@@ -118,7 +118,7 @@ const heroImpulse: Variants = {
     gap-10 lg:gap-16
     items-stretch
     min-h-svh lg:min-h-screen
-    py-16 sm:py-20 lg:py-0
+    py-20 sm:py-24 lg:py-28 xl:py-20
     mt-10 sm:mt-0
   "
 >
@@ -226,18 +226,17 @@ const heroImpulse: Variants = {
         >
           <div
             className={clsx(
-              "relative aspect-square h-full",
-              "max-h-150",
-              "max-w-[80vw] opacity-40",
-              "md:max-w-md md:opacity-80",
-              "lg:max-w-lg"
+              "relative aspect-square w-[78vw] max-w-[360px] opacity-40",
+              "md:w-[420px] md:max-w-none md:opacity-80",
+              "lg:w-[520px]"
             )}
           >
             <DotLottieReact
               src="https://lottie.host/aa90b253-5c3d-44d6-ab93-8810cf812bd7/tcaq2sLKfl.lottie"
               loop
               autoplay
-              className="w-full h-full"
+              renderConfig={{ devicePixelRatio: 1, autoResize: true }}
+              className="block h-full w-full"
             />
           </div>
         </motion.div>

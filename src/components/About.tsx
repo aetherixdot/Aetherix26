@@ -6,50 +6,57 @@ import GridPattern from "../components/GridPattern";
 const cards = [
   {
     title: "Why work with Aetherix ?",
-    desc: "Painless team augmentation. Aetherix is your compass in the digital ocean. We unite purpose-driven minds who blend precision with creativity to deliver faster, smarter, risk-free engineering. We don’t just join your team. We amplify it.",
+    desc: "Painless team augmentation with builders who integrate fast and own outcomes from day one.",
     footer: "Every partnership we build starts with trust and shared direction.",
+    proof: "Avg onboarding < 7 days",
     icon: "/images/image.png",
     photo: "/images/1.png",
   },
   {
     title: "Driven by Curiosity",
-    desc: "Curiosity is where every idea begins. At Aetherix, we explore beyond conventions. We question. We experiment. We discover creative ways to turn imagination into reality.",
+    desc: "We challenge assumptions, run experiments, and find smarter paths before writing costly code.",
     footer: "Progress belongs to those who keep asking better questions.",
+    proof: "Discovery-first planning",
     icon: "/images/curiosity.svg",
     photo: "/images/2.png",
   },
   {
     title: "Engineered for Scalability",
-    desc: "Scalability is more than architecture. It is foresight and integrity. We build systems that grow with you, adapting as your vision expands while staying true to their foundation.",
+    desc: "We design systems for growth early, so your product scales without painful rewrites later.",
     footer: "We build for growth without sacrificing stability.",
+    proof: "Modular, service-ready architecture",
     icon: "/images/stack.svg",
     photo: "/images/3.png",
   },
   {
     title: "Design that Resonates",
-    desc: "We design for humans, not screens. Every motion and color feels intentional. Empathy guides every interaction so technology feels natural and connected.",
+    desc: "Every interaction is crafted for human clarity so users move faster with less friction.",
     footer: "Good design listens before it speaks.",
+    proof: "Human-first UX patterns",
     icon: "/images/architecture.svg",
     photo: "/images/4.png",
   },
   {
     title: "Performance as a Promise",
-    desc: "Performance is respect for time. We fine-tune every layer for speed and stability. Great engineering works quietly in the background, letting the experience speak for itself.",
+    desc: "We optimize every layer for speed, stability, and smooth interactions under real-world load.",
     footer: "Reliability is the most honest form of performance.",
+    proof: "Core Web Vitals focused delivery",
     icon: "/images/performance.svg",
     photo: "/images/5.png",
   },
   {
     title: "Secure by Principle",
-    desc: "Security begins with respect. We protect data and people with care and transparency. Trust is not assumed here. It is earned through every decision we make.",
+    desc: "Security is built in from architecture to release so trust is protected at every step.",
     footer: "Security is a responsibility, not a feature.",
+    proof: "OWASP-aware implementation",
     icon: "/images/secure.svg",
     photo: "/images/6.png",
   },
   {
     title: "The Realm of Aetherix",
-    desc: "The helm completes its turn and reveals our true value. People who care. Systems that endure. Partnerships built on purpose. We don’t just build software. We build digital legacies shaped by human values.",
+    desc: "People who care, systems that endure, and partnerships designed for long-term momentum.",
     footer: "This is what defines us when the work is done.",
+    proof: "Long-term product partnerships",
     icon: "/images/realm.svg",
     photo: "/images/7.png",
   },
@@ -284,14 +291,18 @@ export default function AetherixScrollWheel() {
                     </div>
 
                     {/* TITLE */}
-                    <h3 className="text-3xl md:text-4xl lg:text-5xl font-medium mb-4 md:mb-5 text-(--color-accent-hover) relative z-10">
+                    <h3 className="text-3xl md:text-4xl lg:text-[2.65rem] font-medium mb-4 md:mb-5 text-(--color-accent-hover) relative z-10">
                       {card.title}
                     </h3>
 
                     {/* DESCRIPTION */}
-                    <p className="text-white/90 text-base md:text-lg lg:text-xl leading-relaxed mb-5 md:mb-6 relative z-10">
+                    <p className="max-w-[60ch] text-white/90 text-base md:text-lg lg:text-[1.15rem] leading-relaxed mb-5 md:mb-6 relative z-10">
                       {card.desc}
                     </p>
+
+                    <span className="mb-4 inline-flex w-fit rounded-full border border-white/20 bg-white/8 px-3 py-1 text-xs font-semibold tracking-wide text-white/85 relative z-10">
+                      {card.proof}
+                    </span>
 
                     {/* FOOTER (now elegant, not boxed) */}
                     <p className="
@@ -323,7 +334,7 @@ export default function AetherixScrollWheel() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="grid grid-cols-1 sm:grid-cols-2 gap-8 items-center"
+            className="grid grid-cols-1 sm:grid-cols-2 gap-8 items-center rounded-3xl border border-white/12 bg-white/[0.03] p-6 backdrop-blur-lg"
           >
             <div className="space-y-6">
               <div className="w-16 h-16">
@@ -343,6 +354,9 @@ export default function AetherixScrollWheel() {
               <p className="text-white text-base leading-relaxed">
                 {card.desc}
               </p>
+              <span className="inline-flex w-fit rounded-full border border-white/20 bg-white/8 px-3 py-1 text-xs font-semibold tracking-wide text-white/85">
+                {card.proof}
+              </span>
               <p className="text-[#C8A2FF] text-sm">
                 {card.footer}
               </p>
@@ -369,7 +383,7 @@ export default function AetherixScrollWheel() {
       className="flex justify-center"
     >
       {/* CONTENT WRAPPER (controls width) */}
-      <div className="w-full max-w-md space-y-4 text-left">
+      <div className="w-full max-w-md space-y-4 text-left rounded-2xl border border-white/12 bg-white/[0.03] p-4 backdrop-blur-lg">
         
 {/* IMAGE WRAPPER */}
 <div className="w-full max-w-md h-[20vh] flex items-center justify-center overflow-hidden rounded-xl">
@@ -406,6 +420,10 @@ export default function AetherixScrollWheel() {
           {card.desc}
         </p>
 
+        <span className="inline-flex w-fit rounded-full border border-white/20 bg-white/8 px-2.5 py-1 text-[11px] font-semibold tracking-wide text-white/85">
+          {card.proof}
+        </span>
+
         {/* FOOTER */}
         <p
           className="
@@ -430,3 +448,4 @@ export default function AetherixScrollWheel() {
     </section>
   );
 }
+

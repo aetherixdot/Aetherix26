@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { FaTimes } from 'react-icons/fa'
 import { CiMenuFries } from 'react-icons/ci'
 import { Button1 } from '../components/button'
@@ -10,6 +11,10 @@ import Image from 'next/image'
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const pathname = usePathname()
+
+  const sectionHref = (id: "#services" | "#contact") =>
+    pathname === "/" ? id : `/${id}`
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,6 +24,31 @@ export default function Navbar() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  useEffect(() => {
+    if (pathname !== "/") return
+
+    const scrollToCurrentHash = () => {
+      const hash = window.location.hash
+      if (!hash) return
+      const id = decodeURIComponent(hash.slice(1))
+      const el = document.getElementById(id)
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" })
+      }
+    }
+
+    // Retry because section DOM can settle a bit after route transition.
+    const t1 = window.setTimeout(scrollToCurrentHash, 60)
+    const t2 = window.setTimeout(scrollToCurrentHash, 320)
+
+    window.addEventListener("hashchange", scrollToCurrentHash)
+    return () => {
+      window.clearTimeout(t1)
+      window.clearTimeout(t2)
+      window.removeEventListener("hashchange", scrollToCurrentHash)
+    }
+  }, [pathname])
 
   return (
     <header
@@ -40,28 +70,30 @@ export default function Navbar() {
     priority
     className="object-contain"
   />
-  <span className="text-3xl font-semibold text-white">
+  <span className="brand-display text-3xl font-semibold text-white">
     AETHERIX.
   </span>
 </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8 text-md font-bold text-white">
-          <Link href="#services" className="hover:text-(--color-accent-hover) transition-colors">
+          <Link href={sectionHref("#services")} className="hover:text-(--color-accent-hover) transition-colors">
             Services
           </Link>
-          <Link href="#works" className="hover:text-(--color-accent-hover) transition-colors">
-            Works
+          <Link href="/products" className="hover:text-(--color-accent-hover) transition-colors">
+            Products
           </Link>
-          <Link href="#contact" className="hover:text-(--color-accent-hover) transition-colors">
+          <Link href={sectionHref("#contact")} className="hover:text-(--color-accent-hover) transition-colors">
             Contact
           </Link>
         </nav>
 
         {/* CTA + Mobile Menu Button */}
         <div className="flex items-center gap-4">
-          <Link href="#contact" className="hidden md:block">
-            <Button1>Start your project</Button1>
+          <Link href={sectionHref("#contact")} className="hidden md:block">
+            <Button1 className="!px-4 !py-2 !text-xs leading-none normal-case tracking-normal">
+              Start your project
+            </Button1>
           </Link>
 
           {/* Mobile Menu Toggle */}
@@ -83,18 +115,20 @@ export default function Navbar() {
         }`}
       >
         <ul className="flex flex-col items-center gap-6 py-8 text-lg font-semibold">
-          <Link href="#services" onClick={() => setMenuOpen(false)}>
+          <Link href={sectionHref("#services")} onClick={() => setMenuOpen(false)}>
             Services
           </Link>
-          <Link href="#works" onClick={() => setMenuOpen(false)}>
-            Works
+          <Link href="/products" onClick={() => setMenuOpen(false)}>
+            Products
           </Link>
-          <Link href="#contact" onClick={() => setMenuOpen(false)}>
+          <Link href={sectionHref("#contact")} onClick={() => setMenuOpen(false)}>
             Contact
           </Link>
 
-          <Link href="#contact" onClick={() => setMenuOpen(false)}>
-            <Button1 >Start your project</Button1>
+          <Link href={sectionHref("#contact")} onClick={() => setMenuOpen(false)}>
+            <Button1 className="!px-4 !py-2 !text-xs leading-none normal-case tracking-normal">
+              Start your project
+            </Button1>
           </Link>
         </ul>
       </div>

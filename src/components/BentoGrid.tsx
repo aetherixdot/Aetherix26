@@ -1,11 +1,39 @@
 "use client"
 
 import React from "react"
+import { motion } from "framer-motion"
 
 export default function BentoGrid() {
   return (
     <section className="relative bg-[#121212] py-38">
       <div className="mx-auto max-w-7xl px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.35 }}
+          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-10 sm:mb-12 md:mb-14 text-center"
+        >
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.35 }}
+            transition={{ delay: 0.08, duration: 0.5 }}
+            className="text-xs sm:text-sm font-semibold uppercase tracking-[0.22em] text-white/55"
+          >
+            Core Principles
+          </motion.p>
+          <motion.h2
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.35 }}
+            transition={{ delay: 0.14, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-white leading-tight"
+          >
+            Build Fast. Scale Right.
+            <span className="block text-(--color-accent-hover)">Ship with Purpose.</span>
+          </motion.h2>
+        </motion.div>
 
         <div className="grid grid-cols-1 min-[360px]:grid-cols-2 md:grid-cols-4 auto-rows-auto md:auto-rows-[260px] gap-5 sm:gap-6">
 
@@ -29,7 +57,7 @@ export default function BentoGrid() {
                 </h3>
 
                 <p className="mt-2 text-sm text-gray-300">
-                  Every pixel designed with intention. Every interaction, purposeful.
+                  UX crafted to improve activation, reduce friction, and lift retention.
                 </p>
               </div>
             </div>
@@ -64,7 +92,7 @@ export default function BentoGrid() {
                 <br />
                 <span className="text-gray-200">is respect for time.</span>
               </h3>
-              <p className="mt-3 sm:mt-4 md:mt-6 text-xs sm:text-sm text-gray-300">Lightning-fast delivery. Optimized at every layer. Your users will feel the difference.</p>
+              <p className="mt-3 sm:mt-4 md:mt-6 text-xs sm:text-sm text-gray-300">Faster load times, smoother interactions, and predictable performance under load.</p>
             </div>
           </Card>
 
